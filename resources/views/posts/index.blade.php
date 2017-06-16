@@ -11,4 +11,6 @@
 
     </ul>
 
+    {{ $posts->links() }}
+
 @endsection
