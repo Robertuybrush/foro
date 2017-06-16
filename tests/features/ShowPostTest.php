@@ -1,42 +1,36 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
-class ShowPostTest extends TestCase
+class ShowPostTest extends FeatureTestCase
 {
     function test_a_user_can_see_the_post_details()
     {
         //Having
-        $user = $this->defaultUser();
+        $user = $this->defaultUser([
+            'name' => 'Rober!'
+        ]);
         $title='Este es el título del post';
         $content='Este es el contenido del post';
 
-        $post=factory(\App\Post::class)->make([
+        $post=$this->createPost([
             'title' => $title,
-            'content' => $content
+            'content' => $content,
+            'user_id'=>$user->id
         ]);
-
-        $user->posts()->save($post);
 
         //When
         $this->visit($post->url)
             ->seeInElement('h1',$post->title)
             ->see($post->content)
-            ->see($user->name);
+            ->see($user->name)
+            ->see('Rober!');
     }
 
     function test_old_urls_are_redirected()
     {
         //Having
-        $user = $this->defaultUser();
-
-        $post=factory(\App\Post::class)->make([
+        $post=$this->createPost([
             'title' => 'Old title'
         ]);
-
-        $user->posts()->save($post);
 
         $old_url=$post->url;
         $post->update(['title'=>'New title']);

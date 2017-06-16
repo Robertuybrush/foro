@@ -27,6 +27,10 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
         'content' => $faker->paragraph,
-        'pending' => $faker->boolean()
+        'pending' => $faker->boolean(),
+        'user_id' => function(){
+            //Si meto la llamada al model factory User dentro de una función anónima, si le paso un user_id al create, esto no se ejecuta
+            return factory(\App\User::class)->create()->id;
+        }
     ];
 });
