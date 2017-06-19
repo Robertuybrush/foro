@@ -13,6 +13,11 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function markAsAnswer()
     {
         /*$this->post->comments()->where('answer',true)->update(['answer' => false]);

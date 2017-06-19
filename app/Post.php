@@ -23,6 +23,12 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    /*public function latestComments()
+    {
+        $comments=$this->comments()->orderBy('created_at','DESC')->paginate();
+        return view('posts.commentIndex',compact('comments'));
+    }*/
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title']=$value;

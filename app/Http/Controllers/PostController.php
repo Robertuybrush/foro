@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,8 @@ class PostController extends Controller
             return redirect($post->url,301);
         }
 
-        return view('posts.show', compact('post'));
+        $comments = Comment::orderBy('created_at','DESC')->where('post_id',$post->id)->paginate();
+
+        return view('posts.show', compact(['post','comments']));
     }
 }

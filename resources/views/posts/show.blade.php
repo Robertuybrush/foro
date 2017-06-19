@@ -13,4 +13,15 @@
             Publicar comentario
         </button>
     {!! Form::close() !!}
+
+    @foreach($comments as $comment)
+        <article class="{{ $comment->answer ? 'answer' : '' }}">
+            <span class="author">{{ $comment->user->name }}</span>
+            {{ $comment->comment }}
+            {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
+                <button type="submit">Aceptar respuesta</button>
+            {!! Form::close() !!}
+        </article>
+    @endforeach
+    {{ $comments->links() }}
 @endsection
