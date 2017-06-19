@@ -34,3 +34,17 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         }
     ];
 });
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'comment' => $faker->paragraph,
+        'post_id' => function(){
+            //Si meto la llamada al model factory Post dentro de una función anónima, si le paso un user_id al create, esto no se ejecuta
+            return factory(\App\Post::class)->create()->id;
+        },
+        'user_id' => function(){
+            //Si meto la llamada al model factory User dentro de una función anónima, si le paso un user_id al create, esto no se ejecuta
+            return factory(\App\User::class)->create()->id;
+        }
+    ];
+});
