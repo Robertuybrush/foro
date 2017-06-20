@@ -3,7 +3,7 @@
 @section('content')
     <h1>{{ $post->title }}</h1>
     <p>{{ $post->user->name  }}</p>
-    <p>{{ $post->content }}</p>
+    {!! $post->safe_html_content !!}
 
     <h4>Comentarios</h4>
 
@@ -17,7 +17,7 @@
     @foreach($comments as $comment)
         <article class="{{ $comment->answer ? 'answer' : '' }}">
             <span class="author">{{ $comment->user->name }}</span>
-            {{ $comment->comment }}
+            {!! $comment->safe_html_content !!}
 
             <?php /*@can('accept',$comment)*/ ?>
             @if(Gate::allows('accept',$comment) && !$comment->answer)
