@@ -18,9 +18,14 @@
         <article class="{{ $comment->answer ? 'answer' : '' }}">
             <span class="author">{{ $comment->user->name }}</span>
             {{ $comment->comment }}
-            {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
-                <button type="submit">Aceptar respuesta</button>
-            {!! Form::close() !!}
+
+            <?php /*@can('accept',$comment)*/ ?>
+            @if(Gate::allows('accept',$comment) && !$comment->answer)
+                {!! Form::open(['route' => ['comments.accept', $comment], 'method' => 'POST']) !!}
+                    <button type="submit">Aceptar respuesta</button>
+                {!! Form::close() !!}
+            @endif
+            <?php /*@endcan*/ ?>
         </article>
     @endforeach
     {{ $comments->links() }}
