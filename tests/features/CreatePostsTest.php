@@ -1,5 +1,7 @@
 <?php
 
+use App\Post;
+
 class CreatePostsTest extends FeatureTestCase
 {
     function test_a_user_create_a_post()
@@ -22,7 +24,15 @@ class CreatePostsTest extends FeatureTestCase
             'pending' => true,
             'user_id' => $user->id
         ]);
-        $this->seeInElement('h1', $title);
+
+        $post = Post::first();
+
+        $this->seeInDatabase('subscriptions', [
+            'user_id' => $user->id,
+            'post_id' => $post->id
+        ]);
+
+        $this->seePageIs($post->url);
     }
 
     function test_creating_a_post_requires_authentification()

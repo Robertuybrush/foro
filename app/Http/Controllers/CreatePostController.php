@@ -19,10 +19,8 @@ class CreatePostController extends Controller
             'content' => 'required'
         ]);
 
-        $post = new Post ($request->all());
+        $post=auth()->user()->createPost($request->all());
 
-        auth()->user()->posts()->save($post);
-
-        return '<h1>'.$post->title.'</h1>';
+        return redirect($post->url);
     }
 }

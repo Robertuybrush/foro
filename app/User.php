@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -58,6 +59,11 @@ class User extends Authenticatable
         return $this->subscriptions()->attach($post);
     }
 
+    public function unSubscribeFrom(Post $post)
+    {
+        return $this->subscriptions()->detach($post);
+    }
+
     public function isSubscribedTo(Post $post)
     {
         return $this->subscriptions()->where('post_id',$post->id)->count() > 0;
@@ -66,5 +72,14 @@ class User extends Authenticatable
     public function owns(Model $model)
     {
         return $this->id === $model->user_id;
+    }
+
+    public function createPost(array $data)
+    {
+        $post = new Post ($data);
+        $this->posts()->save($post);
+        $this->subscribeTo($post);
+
+        return $post;
     }
 }
