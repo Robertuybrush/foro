@@ -6,7 +6,7 @@ class ShowPostTest extends FeatureTestCase
     {
         //Having
         $user = $this->defaultUser([
-            'name' => 'Rober!'
+            'first_name' => 'Rober!'
         ]);
         $title='Este es el título del post';
         $content='Este es el contenido del post';

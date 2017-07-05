@@ -14,7 +14,7 @@ class RegistrationTest extends FeatureTestCase
         $this->visitRoute('register')
             ->type('robertsimpson2001@hotmail.com','email')
             ->type('bobhm','username')
-            ->type('Rober J.','name')
+            ->type('Rober J.','first_name')
             ->type('Hurtado','last_name')
             ->press('Regístrate');
 

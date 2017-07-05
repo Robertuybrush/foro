@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>{{ $post->title }}</h1>
-    <p>{{ $post->user->name  }}</p>
+    <p>{{ $post->user->first_name.' '.$post->user->last_name }}</p>
     {!! $post->safe_html_content !!}
 
     @if(auth()->check())
@@ -32,7 +32,7 @@
 
     @foreach($comments as $comment)
         <article class="{{ $comment->answer ? 'answer' : '' }}">
-            <span class="author">{{ $comment->user->name }}</span>
+            <span class="author">{{ $comment->user->first_name.' '.$comment->user->last_name }}</span>
             {!! $comment->safe_html_content !!}
 
             <?php /*@can('accept',$comment)*/ ?>

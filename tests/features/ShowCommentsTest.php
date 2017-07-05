@@ -36,7 +36,7 @@ class ShowCommentsTest extends FeatureTestCase
     function test_the_comment_author_shows_in_comments_section()
     {
         $user=$this->defaultUser([
-            'name' => 'Robert J.'
+            'first_name' => 'Robert J.'
         ]);
 
         $comment=factory(Comment::class)->create([
