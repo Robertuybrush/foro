@@ -12,7 +12,7 @@ class LoginController extends Controller
 
         if($token == null){
             alert('Este enlace ya expiró, por favor solicita otro','danger');
-            return redirect(url('token'));
+            return redirect(url('login'));
         }
 
         $token->login();

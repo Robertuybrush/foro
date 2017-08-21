@@ -15,17 +15,17 @@ class PostIntegrationTest extends TestCase
 
         /*$this->seeInDatabase('posts',[
             'slug' => 'como-instalar-laravel'
-        ]);
+        ]);*/
 
         $this->assertSame(
             'como-instalar-laravel',
             $post->fresh()->slug
-        );*/
+        );
 
-        $this->assertSame('como-instalar-laravel',$post->slug);
+        /*$this->assertSame('como-instalar-laravel',$post->slug);*/
     }
 
-    function test_url_getter()
+    /*function test_url_getter()
     {
         $user=$this->defaultUser();
 
@@ -36,5 +36,5 @@ class PostIntegrationTest extends TestCase
         $user->posts()->save($post);
 
         $this->visit($post->url);
-    }
+    }*/
 }
