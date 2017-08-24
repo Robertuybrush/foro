@@ -150,6 +150,7 @@ return [
         'subject'               => 'asunto',
         'message'               => 'mensaje',
         'content'               => 'contenido',
+        'category_id'           => 'categoría'
     ],
 
 ];
