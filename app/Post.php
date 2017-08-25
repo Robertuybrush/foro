@@ -40,6 +40,13 @@ class Post extends Model
         return view('posts.commentIndex',compact('comments'));
     }*/
 
+    public function scopeCategory($query, Category $category)
+    {
+        if($category->exists){
+            $query->where('category_id', $category->id);
+        }
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title']=$value;

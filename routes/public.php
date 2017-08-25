@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', [
+Route::get('{category?}', [
     'uses' => 'PostController@index',
     'as' => 'posts.index'
 ]);
