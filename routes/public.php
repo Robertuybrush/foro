@@ -11,6 +11,15 @@
 |
 */
 
+Route::get('posts-pendientes/{category?}', [
+    'uses' => 'PostController@index',
+    'as' => 'posts.pending'
+]);
+
+Route::get('posts-completados/{category?}', [
+    'uses' => 'PostController@index',
+    'as' => 'posts.completed'
+]);
 
 Route::get('{category?}', [
     'uses' => 'PostController@index',

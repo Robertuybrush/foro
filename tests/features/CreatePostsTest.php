@@ -9,7 +9,8 @@ class CreatePostsTest extends FeatureTestCase
         //Having
         $title='Esta es una pregunta';
         $content='Este es el contenido';
-        $this->actingAs($user=$this->defaultUser());
+        $user=$this->defaultUser();
+        $this->actingAs($user);
 
         $category=factory(\App\Category::class)->create();
 

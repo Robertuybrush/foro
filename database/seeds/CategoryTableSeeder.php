@@ -29,7 +29,7 @@ class CategoryTableSeeder extends Seeder
 
         Category::forceCreate([
         	'name' => 'CSS',
-        	'slug' => 'css'
+        	'slug' => 'css-category'
         ]);
 
         Category::forceCreate([

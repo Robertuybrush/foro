@@ -9,15 +9,17 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Category $category = null)
+    public function index(Category $category = nul, Request $request)
     {
         //$posts = Post::all();
+
         $posts = Post::orderBy('created_at','DESC')
-            ->category($category)
+            ->scopes($this->getListScopes($category, $request))
+            ->latest()
             ->paginate();
 
 
-        $categoryItems = $this->getCategoryItems();
+        $categoryItems = $this->getCategoryItems($request);
 
         return view('posts.index',compact('posts', 'category', 'categoryItems'));
     }
@@ -34,13 +36,43 @@ class PostController extends Controller
         return view('posts.show', compact(['post','comments']));
     }
 
-    protected function getCategoryItems()
+    protected function getCategoryItems(Request $request)
     {
-        return Category::orderBy('name')->get()->map(function ($category){
-            return[
-                'title' => $category->name,
-                'full_url' => route('posts.index', $category)
-            ];
-        })->toArray();
+        $routeName = $request->route()->getName();
+
+        return Category::query()
+            ->orderBy('name')
+            ->get()
+            ->map(function ($category) use ($routeName){
+                return[
+                    'title' => $category->name,
+                    'full_url' => route($routeName, $category)
+                ];
+            })
+            ->toArray();
+    }
+
+    protected function getListScopes(Category $category, Request $request)
+    {
+        $scopes=[];
+
+        if($category->exists)
+        {
+            $scopes['category'] = [$category];
+        }
+
+        $routeName = $request->route()->getName();
+
+        if($routeName == 'posts.pending')
+        {
+            $scopes[]='pending';
+        }
+        
+        if($routeName == 'posts.completed')
+        {
+            $scopes[]='completed';
+        }
+
+        return $scopes;
     }
 }
